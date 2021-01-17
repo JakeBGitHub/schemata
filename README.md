@@ -4,15 +4,19 @@
 
 ### 1. [HDR UK Dataset Schema](https://github.com/HDRUK/schemata/blob/develop/docs/dataset/latest/dataset.md)
 
- - Latest json schema and yml can be found here:  https://github.com/HDRUK/schemata/blob/develop/schema/dataset/latest
- - Example json files can be found here including a current mapped dataset, a minimium json example and a ful example: https://github.com/HDRUK/schemata/blob/develop/examples 
- - Latest word documentation, change log and mapping file can be found here: https://github.com/HDRUK/schemata/tree/develop/docs/dataset/2.0.0/distribution
- - Impact assessment and indicative mapping files can be found here: https://github.com/HDRUK/schemata/tree/develop/docs/dataset/2.0.0/impact-assessment
-      - aggregated_errors.xlsx: aggregated validation errors with an overview on the most common errors per attribute that will need to be resolved during migration
-      - generated_mapping.py: the mapping algorithm that generates v2 data-models, (basically a mapping function for all fields in the new v2 specs).
-      - v1_to_v2.json: for each data-model (key is the UUID) v1: old schema, v2: new schema, which is the mapping result (generated_mapping.py) of all data-models in the gateway.
-      - dm_validation.json: for each data-model (key again is UUID) the data-set in form of the v2 attributes and the JSON schema validation.
-      - aggregated_errors.json: an aggregation of the validation of all data-models by attribute with a list of unique error messages, a count of unique error messages, and a total count of the errors across all data-models; note that JSON schema validator generates an entry for all hierarchy levels, which means some error messages are repeated along the hierarchy.
+The latest version specification required for datasets to be onboarded onto the Gateway are shown in this repository and is comprised of the following:
+
+ - The latest json schema and yaml which can be found here: https://github.com/HDRUK/schemata/blob/develop/schema/dataset/latest. They represent the V2 metadata specification for onboarding datasets onto the Gateway presented in the [descriptive metadata documentation](https://github.com/HDRUK/schemata/tree/develop/docs/dataset/2.0.0/distribution).
+ - Example json files which can be found here: https://github.com/HDRUK/schemata/blob/develop/examples. It includes a current mapped dataset, a minimum json example and a full example of the metadata for onboarding to the Gateway.
+ - The latest word documentation, change log and mapping file which can be found here: https://github.com/HDRUK/schemata/tree/develop/docs/dataset/2.0.0/distribution. The documentation provides details of the descriptive metadata needed for the Gateway including their definitions and user stories to illustrate its purpose.
+ - An impact assessment and indicative mapping files which can be found here: https://github.com/HDRUK/schemata/tree/develop/docs/dataset/2.0.0/impact-assessment. It contains the following files:
+   - *aggregated_errors.xlsx*: aggregated validation errors with an overview on the most common errors per attribute that will need to be resolved during migration.
+   - *generated_mapping.py*: the mapping algorithm that generates v2 data-models, (basically a mapping function for all fields in the new v2 specs).
+   - *v1_to_v2.json*: for each data-model (key is the UUID) v1: old schema, v2: new schema, which is the mapping result (*generated_mapping.py*) of all data-models in the gateway.
+   - *dm_validation.json*: for each data-model (key again is UUID) the data-set in form of the v2 attributes and the JSON schema validation.
+   - *aggregated_errors.json*: an aggregation of the validation of all data-models by attribute with a list of unique error messages, a count of unique error messages, and a total count of the errors across all data-models; note that JSON schema validator generates an entry for all hierarchy levels, which means some error messages are repeated along the hierarchy.
+
+
 
 ### 2. Dataset Properties Breakdown
 
@@ -74,6 +78,16 @@ Below is the breakdown of the HDR UK V2 Dataset Schema by its properties and sub
 <!--te-->
 
 
+
 ### 3. [Metadata Quality Scoring](https://github.com/JakeBGitHub/datasets/tree/dataset-v2-scores/reports#hdr-uk-data-documentation-scores)
 
 Once a dataset is onboarded onto the Gateway, a quality check is run on its corresponding json schema to produce a weighted quality score based on weighted field completeness and weighted field error percentage. Weights of each field can be found here (https://github.com/HDRUK/datasets/tree/dataset-v2-scores/config/weights) and details of the quality score calculation can be found here (https://github.com/HDRUK/datasets/tree/dataset-v2-scores/reports).
+
+A based on the weighted quality score, a dataset is given a medallion rating as follows:
+
+- <img src="https://render.githubusercontent.com/render/math?math=\leq 50"> is "Not rated",
+- <img src="https://render.githubusercontent.com/render/math?math=> 50"> & <img src="https://render.githubusercontent.com/render/math?math=\leq 70"> is "Bronze",
+- <img src="https://render.githubusercontent.com/render/math?math=> 70"> & <img src="https://render.githubusercontent.com/render/math?math=\leq 80"> is "Silver",
+- <img src="https://render.githubusercontent.com/render/math?math=> 80"> & <img src="https://render.githubusercontent.com/render/math?math=\leq 90"> is "Gold",
+- <img src="https://render.githubusercontent.com/render/math?math=\geq 90"> is "Platinum".
+
